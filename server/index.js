@@ -12,15 +12,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 
 // Strategies
-const localLoginStrategy = require('./passport');
-passport.use('local-login', localLoginStrategy);
+const localLoginStrategy = ;
+passport.use('local-strategy', require('./passport'));
 
 // Initialize mongoose
 mongoose.Promise = global.Promise;
-mongoose.connect(CONFIG.DB_URL, (err) => {
-  if (err) { console.log('Error connecting to MongoDB'); }
-  else { console.log('Connected to MongoDB'); }
-});
+mongoose.connect('mongodb://localhost/experiments');
 
 // CORS
 app.use(function(req, res, next) {
