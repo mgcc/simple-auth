@@ -26,43 +26,18 @@ module.exports = new PassportLocalStrategy(
           return done('Wrong password');
         }
 
-        // create token string
-        const payload = {
-
+        const tokenPayload = {
+          sub: user._id
         }
 
-        // const token = jwt.sign()
+        const token = jwt.sign(tokenPayload, 'THIS IS A SECRET STRING');
 
-        // Password is wrong
-        // return user.comparePassword(userData.password, (passwordErr, isMatch) => {
-        //   if (passwordErr) {
-        //     console.log('Error comparing password');
-        //     return done(passwordErr);
-        //   }
+        const data = {
+          username: user.username,
+          name: user.name
+        }
 
-        //   if (!isMatch) {
-        //     console.log("Wrong password");
-
-        //     // return done(null, false, { message: "Invalid Credentials"} );
-        //     return done(new Error("Invalid Credentials"));
-        //   }
-
-        //   const payload = {
-        //     sub: user._id
-        //   };
-
-        //   const options = {
-        //     expiresIn: 60 * 20   // 20m
-        //   }
-
-        //   // create a token string
-        //   const token = jwt.sign(payload, 'THIS IS A SECRET!!');
-        //   const data = {
-        //     name: user.name
-        //   };
-
-        //   return done(null, token, data);
-        // })
+        return done(null, token, data)
       }
     )
   }

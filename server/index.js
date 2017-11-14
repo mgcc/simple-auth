@@ -12,7 +12,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 
 // Strategies
-const localLoginStrategy = ;
 passport.use('local-strategy', require('./passport'));
 
 // Initialize mongoose
@@ -31,22 +30,20 @@ app.use(function(req, res, next) {
 });
 
 // Routes
-app.post('/login', (req, res) => {
+const authController = require('./auth-controller');
+const authCheck = require('./auth-check-middleware');
 
-});
+app.post('/login', authController.login);
 
-app.post('/logout', (req, res) => {
-
-});
+app.post('/logout', authController.logout);
 
 app.use('/authorized', authCheck);
+
 app.get('/authorized', (req, res) => {
   res.send('You need to be authorized to view this page!');
 });
 
-
-
 // Start server
-app.listen(3000, (err) => {
-  if (!err) console.log(`API running on http://localhost:3000`);
+app.listen(3001, (err) => {
+  if (!err) console.log(`API running on http://localhost:3001`);
 })
