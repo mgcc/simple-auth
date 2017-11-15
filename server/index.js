@@ -40,7 +40,7 @@ app.post('/logout', authController.logout);
 app.use('/authorized', authCheck);
 
 app.get('/authorized', (req, res) => {
-  res.send('You need to be authorized to view this page!');
+  res.send('This is a secret page! If you can see this message, that means you are authorized');
 });
 
 // Start server

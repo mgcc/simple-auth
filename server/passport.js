@@ -16,14 +16,8 @@ module.exports = new PassportLocalStrategy(
         if (err) { return done(err); }
 
         // No user found
-        if (!user) {
-          console.log('No user with that email found');
+        if (!user || password != user.password) {
           return done(null, false, { message: "Invalid Credentials"} );
-        }
-
-        if (password != user.password) {
-          console.log('Wrong password');
-          return done('Wrong password');
         }
 
         const tokenPayload = {

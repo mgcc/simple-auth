@@ -12,12 +12,20 @@ exports.login = (req, res, next) => {
       });
     }
 
-    res.json({
+    if (!token) {
+      return res.json({
+        success: false,
+        message: 'Invalid Credentials'
+      });
+    }
+
+    return res.json({
       success: true,
       message: 'You have successfully logged in',
       token,
       userData
     });
+
   })(req, res, next);
 }
 
